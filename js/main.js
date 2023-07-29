@@ -1,3 +1,4 @@
 import {createPhotos} from './data.js';
+import {insertElementsToPage} from './photo.js';
 
-createPhotos();
+insertElementsToPage(createPhotos());
