@@ -14,7 +14,7 @@
 //
 //  4. Подключите модуль в проект.
 
-const photoTemplate = document.querySelector("#picture").content.querySelector('.picture');
+const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
 const createElement = ({comments, url, description, likes}) => {
