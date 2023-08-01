@@ -61,7 +61,6 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-
 function openBigPhoto (arrayPhoto) {
   bigPhoto.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');

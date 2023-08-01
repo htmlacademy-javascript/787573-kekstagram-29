@@ -10,7 +10,7 @@ const closeMessage = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-function onDocumentKeydown(evt) {
+function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeMessage();
