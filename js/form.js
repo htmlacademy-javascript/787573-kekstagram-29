@@ -75,7 +75,7 @@ const showSelectImg = () => {
   }
 };
 
-const onButtonCloseUploadForm = () => {
+function onButtonCloseUploadForm () {
   closeForm();
 }
 
@@ -85,7 +85,7 @@ const onFileInputChange = () => {
 };
 
 const isTextFieldFocused = () => document.activeElement === hashtagsInput || document.activeElement === commentInput;
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
     closeForm();

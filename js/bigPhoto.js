@@ -61,8 +61,7 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-
-const openBigPhoto = (arrayPhoto) => {
+function openBigPhoto (arrayPhoto) {
   bigPhoto.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
@@ -79,7 +78,7 @@ const openBigPhoto = (arrayPhoto) => {
 
 }
 
-const closeBigPhoto = () => {
+function closeBigPhoto () {
   bigPhoto.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
