@@ -1,5 +1,5 @@
 import {createPhotos} from './data.js';
-import './validationForm.js';
+import './form.js';
 import {renderGallery} from './gallery.js';
 
 renderGallery(createPhotos());

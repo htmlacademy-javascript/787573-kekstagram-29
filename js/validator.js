@@ -1,5 +1,3 @@
-import {isEscapeKey} from './util.js';
-
 const MAX_HASHTAGS_COUNTS = 5;
 const MAX_COMMENT_LENGTH = 140;
 const REGEX_HASHTAGS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -8,9 +6,6 @@ const INVALID_HASHTAG_COUNT = 'Количество хэш-тегов не бо�
 const INVALID_HASHTAG_REPEAT = 'Хэш-теги не должны повторяться';
 const INVALID_COMMENT_LENGTH = 'Длина комментария не может составлять больше 140 символов';
 
-const uploadField = document.querySelector('.img-upload__input');
-const uploadOverlay = document.querySelector('.img-upload__overlay');
-const uploadCancelButton = document.querySelector('.img-upload__cancel');
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
@@ -21,6 +16,9 @@ const erorrConfig = {
 };
 
 const pristine = new Pristine(uploadForm, erorrConfig);
+
+const isValid = pristine.validate;
+const resetValidator = pristine.reset;
 
 const normalizeHashtags = (tags) => tags
   .trim()
@@ -50,49 +48,4 @@ pristine.addValidator(hashtagsInput, validateHashtagsFormat, INVALID_HASHTAG_FOR
 pristine.addValidator(hashtagsInput, validateHashtagsDublicate, INVALID_HASHTAG_REPEAT);
 pristine.addValidator(commentInput, validateCommentLength, INVALID_COMMENT_LENGTH);
 
-const onSubmitButtonClick = (evt) => {
-  evt.preventDefault();
-
-  const isValid = pristine.validate();
-
-  if(isValid) {
-    uploadForm.submit();
-  }
-};
-
-const closeForm = () => {
-  uploadForm.reset();
-  pristine.reset();
-  document.removeEventListener('keydown', onDocumentKeydown);
-  uploadOverlay.classList.add('hidden');
-  document.body.classList.remove('.modal-open');
-  uploadForm.removeEventListener('submit', onSubmitButtonClick);
-  uploadCancelButton.removeEventListener('click', onButtonCloseUploadForm);
-};
-
-const openForm = () => {
-  uploadOverlay.classList.remove('hidden');
-  document.body.classList.add('.modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
-  uploadForm.addEventListener('submit', onSubmitButtonClick);
-  uploadCancelButton.addEventListener('click', onButtonCloseUploadForm);
-};
-
-function onButtonCloseUploadForm () {
-  closeForm();
-}
-
-const onFileInputChange = () => {
-  openForm();
-};
-
-const isTextFieldFocused = () => document.activeElement === hashtagsInput || document.activeElement === commentInput;
-
-function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt) && !isTextFieldFocused()) {
-    evt.preventDefault();
-    closeForm();
-  }
-}
-
-uploadField.addEventListener('change', onFileInputChange);
+export {isValid, resetValidator};
