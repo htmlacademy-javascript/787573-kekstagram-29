@@ -10,14 +10,14 @@ const closeMessage = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-function onDocumentKeydown(evt) {
+const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeMessage();
   }
 }
 
-function onBodyClick(evt) {
+const onBodyClick = (evt) => {
   if (!(evt.target.closest('.success__inner')) || (evt.target.closest('.error__inner'))) {
     evt.preventDefault();
     closeMessage();
