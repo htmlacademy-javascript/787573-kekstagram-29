@@ -13,6 +13,7 @@ const socialCommentCount = bigPhoto.querySelector('.social__comment-count');
 const commentsLoaderButton = bigPhoto.querySelector('.comments-loader');
 const commentTemplate = document.querySelector('.social__comment');
 
+
 let commentsShown = 0;
 let commentsArray = [];
 
@@ -26,9 +27,10 @@ const createBigPhoto = ({comments, url, description, likes}) => {
 
 const createComment = ({avatar, message, name}) => {
   const element = commentTemplate.cloneNode(true);
-  element.querySelector('.social__picture').src = avatar;
-  element.querySelector('.social__picture').alt = name;
-  element.querySelector('.social__text').innerHTML = message;
+  const avatarElement = element.querySelector('.social__picture');
+  avatarElement.src = avatar;
+  avatarElement.alt = name;
+  element.querySelector('.social__text').textContent = message;
   return element;
 };
 
@@ -54,6 +56,15 @@ const renderComments = () => {
   socialCommentCount.innerHTML = `${commentsShown} из <span class="comments-count">${commentsArray.length}</span> комментариев`;
 };
 
+
+const closeBigPhoto = () => {
+  bigPhoto.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  commentsShown = 0;
+
+};
+
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -61,7 +72,7 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function openBigPhoto (arrayPhoto) {
+const openBigPhoto = (arrayPhoto) => {
   bigPhoto.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
@@ -76,18 +87,16 @@ function openBigPhoto (arrayPhoto) {
     renderComments();
   }
 
-}
-
-function closeBigPhoto () {
-  bigPhoto.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
-  commentsShown = 0;
-
-}
+};
 
 photoCloseButton.addEventListener('click', () => {
   closeBigPhoto();
+});
+
+bigPhoto.addEventListener('click', (evt) => {
+  if (evt.target === bigPhoto) {
+    closeBigPhoto();
+  }
 });
 
 commentsLoaderButton.addEventListener('click', () => {
