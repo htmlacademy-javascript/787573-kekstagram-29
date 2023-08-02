@@ -65,12 +65,12 @@ const closeBigPhoto = () => {
 
 };
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPhoto();
   }
-};
+}
 
 const openBigPhoto = (arrayPhoto) => {
   bigPhoto.classList.remove('hidden');
@@ -86,7 +86,6 @@ const openBigPhoto = (arrayPhoto) => {
   if (commentsArray.length > 0) {
     renderComments();
   }
-
 };
 
 photoCloseButton.addEventListener('click', () => {
