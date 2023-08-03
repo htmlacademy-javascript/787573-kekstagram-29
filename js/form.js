@@ -15,6 +15,9 @@ const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 const imgPreview = document.querySelector('.img-upload__preview img');
+const photoUploadPreview = document.querySelector('.img-upload__preview');
+const effectsPreview = document.querySelectorAll('.effects__preview');
+const effectsPreviewArray = [...effectsPreview];
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -52,6 +55,7 @@ const closeForm = () => {
   resetScale();
   document.removeEventListener('keydown', onDocumentKeydown);
   uploadOverlay.classList.add('hidden');
+  photoUploadPreview.style.filter = '';
   document.body.classList.remove('.modal-open');
   uploadCancelButton.removeEventListener('click', onButtonCloseUploadForm);
 };
@@ -72,8 +76,17 @@ const showSelectImg = () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if (matches) {
     imgPreview.src = URL.createObjectURL(file);
+    effectsPreviewArray.forEach((element) => {
+      element.style.backgroundImage = `url("${imgPreview.src}")`;
+    });
   }
 };
+
+uploadOverlay.addEventListener('click', (evt) => {
+  if (evt.target === uploadOverlay) {
+    closeForm();
+  }
+});
 
 function onButtonCloseUploadForm () {
   closeForm();
